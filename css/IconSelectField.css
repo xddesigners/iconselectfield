@@ -1,0 +1,15 @@
+.icon-select-field li label {
+    font-size: 2rem;
+    text-align: center;
+    line-height: 50px;
+    opacity: 0.6;
+}
+
+.icon-select-field li input:checked + label {
+    font-size: 2.5rem;
+    opacity: 1;
+}
+
+.icon-select-field li input:checked + label:after {
+    content: none !important;
+}

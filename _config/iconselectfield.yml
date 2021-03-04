@@ -1,0 +1,17 @@
+---
+Name: iconselectfield
+---
+SilverStripe\Core\Injector\Injector:
+  Icon:
+    class: XD\IconSelectField\Fields\DBIcon
+SilverStripe\Admin\LeftAndMain:
+  extensions:
+    - XD\IconSelectField\Extensions\LeftAndMainExtension
+
+# example config
+#XD\IconSelectField\Forms\IconSelectField:
+#  icons:
+#    section:
+#      facebook: 'fab fa-facebook-square'
+#    other_section:
+#      svg_icon: '<svg />'
