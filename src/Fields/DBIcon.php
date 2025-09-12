@@ -2,14 +2,15 @@
 
 namespace XD\IconSelectField\Fields;
 
+use SilverStripe\Forms\FormField;
 use SilverStripe\ORM\FieldType\DBVarchar;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\SSViewer;
 use XD\IconSelectField\Forms\IconSelectField;
 
 class DBIcon extends DBVarchar
 {
-    public function forTemplate()
+    public function forTemplate(): string
     {
         $iconName = $this->getValue();
         $found = null;
@@ -46,7 +47,7 @@ class DBIcon extends DBVarchar
      * @param null $params
      * @return \SilverStripe\Forms\FormField|DBVarchar|IconSelectField
      */
-    public function scaffoldFormField($title = null, $params = null)
+    public function scaffoldFormField(?string $title = null, array $params = []): ?FormField
     {
         return IconSelectField::create($this->name, $title);
     }
