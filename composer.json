@@ -6,12 +6,12 @@
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Bram de Leeuw",
-            "email": "bram@xd.nl"
+            "name": "Remy Vaartjes",
+            "email": "remy@xd.nl"
         }
     ],
     "require": {
-        "silverstripe/framework": "^4 || ^5",
+        "silverstripe/framework": "^6",
         "heyday/silverstripe-colorpalette": "^2.0"
     },
     "autoload": {
