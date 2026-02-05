@@ -15,7 +15,7 @@ use XD\IconSelectField\Forms\IconSelectField;
  */
 class LeftAndMainExtension extends Extension
 {
-    public function init()
+    public function onInit()
     {
         $includes = IconSelectField::config()->get('fonts_include');
         if ($includes && is_array($includes)) {

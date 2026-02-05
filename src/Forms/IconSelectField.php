@@ -2,12 +2,19 @@
 
 namespace XD\IconSelectField\Forms;
 
-use Heyday\ColorPalette\Fields\GroupedColorPaletteField;
+use InvalidArgumentException;
+use SilverStripe\Dev\Debug;
+use SilverStripe\Forms\GroupedDropdownField;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\View\Parsers\HTMLValue;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\TemplateGlobalProvider;
 use XD\IconSelectField\Fields\DBIcon;
+use XD\IconSelectField\Models\IconGroup;
+use XD\IconSelectField\Models\Icon;
 
-class IconSelectField extends GroupedColorPaletteField implements TemplateGlobalProvider
+class IconSelectField extends GroupedDropdownField implements TemplateGlobalProvider
 {
     /**
      * Configure icons, can be configured in groups
@@ -45,20 +52,82 @@ class IconSelectField extends GroupedColorPaletteField implements TemplateGlobal
         parent::__construct($name, $title, $icons, $value = null);
     }
 
-    public function getIcons()
+    public function Field($properties = [])
     {
+        Requirements::css('xddesigners/iconselectfield:css/IconSelectField.css');
+
+        $source = $this->getSource();
+
+        $odd = 0;
+        $fieldExtraClass = $this->extraClass();
         $groups = [];
-        $group = [];
-        $icons = self::config()->get('icons');
-        foreach ($icons as $label => $icon) {
-            if (is_array($icon)) {
-                $groups[$label] = $icon;
-            } else {
-                $group[$label] = $icon;
+
+        if ($source) {
+            foreach ($source as $name => $values) {
+                if (is_array($values)) {
+                    $options = [];
+
+                    foreach ($values as $value => $color) {
+                        $itemID = $this->ID() . '_' . preg_replace('/[^a-zA-Z0-9]/', '', $value);
+                        $odd = ($odd + 1) % 2;
+                        $extraClass = $odd ? 'odd' : 'even';
+                        $extraClass .= ' val' . preg_replace('/[^a-zA-Z0-9\-\_]/', '_', $value);
+
+                        $options[] = new ArrayData([
+                            'ID' => $itemID,
+                            'Class' => $extraClass,
+                            'Name' => $this->name,
+                            'Value' => $value,
+                            'Title' => $color,
+                            'isChecked' => $value == $this->value,
+                            'isDisabled' => $this->disabled || in_array($value, $this->disabledItems),
+                        ]);
+                    }
+
+                    $groups[] = new ArrayData(
+                        [
+                            'ID' => $this->ID() . '_' . preg_replace('/[^a-zA-Z0-9]/', '', $name),
+                            'extraClass' => $fieldExtraClass,
+                            'Name' => $name,
+                            'Options' => new ArrayList($options),
+                        ]
+                    );
+
+                } else {
+                    throw new InvalidArgumentException('To use IconSelectField you need to pass in an array of array\'s');
+                }
             }
         }
-        if (!empty($group)) {
-            $groups['Icons'] = $group;
+
+        $properties = array_merge(
+            $properties,
+            [
+                'Groups' => new ArrayList($groups),
+            ]
+        );
+
+        return $this->customise($properties)->renderWith(
+            $this->getTemplates()
+        );
+    }
+
+    public function getIcons()
+    {
+
+        $groups = [];
+
+        $iconGroups = IconGroup::get();
+        if (!$iconGroups->exists()) {
+            return [];
+        }
+
+        foreach ($iconGroups as $iconGroup) {
+            $icons = [];
+            $iconList = $iconGroup->Icons();
+            foreach ($iconList as $icon) {
+                $icons[$icon->Title] = $icon->getPreview();
+            }
+            $groups[$iconGroup->Title] = $icons;
         }
 
         return $groups;
@@ -69,14 +138,7 @@ class IconSelectField extends GroupedColorPaletteField implements TemplateGlobal
      */
     public function Type()
     {
-        return 'icon-select-field groupedcolorpalette colorpalette';
-    }
-
-    public function Field($properties = [])
-    {
-        // todo vendor requirement
-        Requirements::css('xddesigners/iconselectfield:css/IconSelectField.css');
-        return parent::Field($properties);
+        return 'icon-select-field';
     }
 
     public static function IconSelectIcon($iconName)
@@ -87,7 +149,7 @@ class IconSelectField extends GroupedColorPaletteField implements TemplateGlobal
     public static function get_template_global_variables()
     {
         return [
-            'IconSelectIcon' => 'IconSelectIcon'
+            'IconSelectIcon' => 'IconSelectIcon',
         ];
     }
 }
