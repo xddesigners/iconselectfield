@@ -55,6 +55,7 @@ class IconSelectField extends GroupedDropdownField implements TemplateGlobalProv
     public function Field($properties = [])
     {
         Requirements::css('xddesigners/iconselectfield:css/IconSelectField.css');
+        Requirements::javascript('xddesigners/iconselectfield:js/IconSelectField.js');
 
         $source = $this->getSource();
 

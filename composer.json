@@ -2,7 +2,13 @@
     "name": "xddesigners/iconselectfield",
     "description": "Adds a configurable icon select field",
     "type": "silverstripe-vendormodule",
-    "keywords": ["SilverStripe", "Icon", "SVG", "FontAwesome", "Field"],
+    "keywords": [
+        "SilverStripe",
+        "Icon",
+        "SVG",
+        "FontAwesome",
+        "Field"
+    ],
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -11,8 +17,7 @@
         }
     ],
     "require": {
-        "silverstripe/framework": "^6",
-        "heyday/silverstripe-colorpalette": "dev-main"
+        "silverstripe/framework": "^6"
     },
     "autoload": {
         "psr-4": {
@@ -20,8 +25,9 @@
         }
     },
     "extra": {
-      "expose": [
-        "css"
-      ]
+        "expose": [
+            "css",
+            "js"
+        ]
     }
 }

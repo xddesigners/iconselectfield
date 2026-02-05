@@ -18,6 +18,7 @@
 .icon-select-field ul {
     overflow: hidden;
     padding-left: 0;
+    margin-top: 8px;
 }
 
 .icon-select-field li {
@@ -31,8 +32,8 @@
 
 .icon-select-field li label {
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 3px;
     margin: 5px 5px 5px 5px;
     outline: 1px solid #fff;
@@ -40,6 +41,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: white;
 }
 
 .icon-select-field li label svg{
@@ -68,15 +70,6 @@
             1px -1px 0 #fff,
             -1px 1px 0 #fff,
             1px 1px 0 #fff;
-}
-
-.icon-select-field h4 {
-    padding: 8px 8px 8px 0;
-    line-height: 16px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #fff;
-    font-size: 12px;
-    margin: 0;
 }
 
 /* react component styles */
@@ -119,4 +112,63 @@
             1px -1px 0 #fff,
             -1px 1px 0 #fff,
             1px 1px 0 #fff;
+}
+
+
+/* Base style for the summary */
+.icon-select-group summary {
+    display: flex;                  /* align marker + title + arrow */
+    align-items: center;            /* vertically center content */
+    justify-content: space-between; /* title left, arrow right */
+    cursor: pointer;                /* show clickable pointer */
+    font-weight: 600;               /* slightly bolder title */
+    font-size: 1rem;                /* match CMS font size */
+    user-select: none;              /* prevent text selection */
+    padding: .5rem 0;
+}
+
+
+
+/* Custom arrow indicator */
+.icon-select-group summary::after {
+    content: "▶";                  /* right-pointing arrow */
+    transition: transform 0.2s ease;
+    font-size: 0.6rem;
+    margin-right: 1rem;
+    color: #666;
+}
+
+/* Rotate arrow when open */
+.icon-select-group[open] summary::after {
+    transform: rotate(90deg);      /* points down when open */
+}
+
+.icon-select-group summary h4 {
+    display: inline;
+    margin: 0;
+    font-weight: normal;
+    font-size: 1rem;
+    text-transform: capitalize;
+}
+
+.icon-select-group{
+    border: 1px solid #CFD5E1;
+    background: rgb(243.9761363636,245.5943181818,248.2238636364);
+    padding: 7px 10px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+}
+
+.icon-select-options {
+    display: none;
+    margin-left: 1rem;
+}
+
+.icon-select-group.is-open .icon-select-options {
+    display: block;
+    cursor: pointer;
+}
+
+.icon-select-toggle {
+    cursor: pointer;
 }
