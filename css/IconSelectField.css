@@ -45,8 +45,8 @@
 }
 
 .icon-select-field li label svg{
-    width: 60%;
-    height: 60%;
+    width: 70%;
+    height: 70%;
 }
 
 .icon-select-field.readonly li label {
@@ -134,7 +134,7 @@
     content: "▶";                  /* right-pointing arrow */
     transition: transform 0.2s ease;
     font-size: 0.6rem;
-    margin-right: 1rem;
+    margin-right: .5rem;
     color: #666;
 }
 

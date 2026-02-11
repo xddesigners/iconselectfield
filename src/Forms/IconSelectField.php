@@ -64,22 +64,29 @@ class IconSelectField extends GroupedDropdownField implements TemplateGlobalProv
         $groups = [];
 
         if ($source) {
+            $i = 0;
             foreach ($source as $name => $values) {
+
                 if (is_array($values)) {
                     $options = [];
+                    if ($i == 0) {
+                        $options[] = new ArrayData([
+                            'ID' => 0,
+                            'Name' => $this->name,
+                            'Value' => '',
+                            'Title' => '',
+                            'isChecked' => '' == $this->value,
+                            'isDisabled' => $this->disabled || in_array('', $this->disabledItems),
+                        ]);
+                    }
 
-                    foreach ($values as $value => $color) {
+                    foreach ($values as $value => $icon) {
                         $itemID = $this->ID() . '_' . preg_replace('/[^a-zA-Z0-9]/', '', $value);
-                        $odd = ($odd + 1) % 2;
-                        $extraClass = $odd ? 'odd' : 'even';
-                        $extraClass .= ' val' . preg_replace('/[^a-zA-Z0-9\-\_]/', '_', $value);
-
                         $options[] = new ArrayData([
                             'ID' => $itemID,
-                            'Class' => $extraClass,
                             'Name' => $this->name,
                             'Value' => $value,
-                            'Title' => $color,
+                            'Title' => $icon,
                             'isChecked' => $value == $this->value,
                             'isDisabled' => $this->disabled || in_array($value, $this->disabledItems),
                         ]);
@@ -93,7 +100,7 @@ class IconSelectField extends GroupedDropdownField implements TemplateGlobalProv
                             'Options' => new ArrayList($options),
                         ]
                     );
-
+                    $i++;
                 } else {
                     throw new InvalidArgumentException('To use IconSelectField you need to pass in an array of array\'s');
                 }

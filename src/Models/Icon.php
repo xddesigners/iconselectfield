@@ -53,10 +53,21 @@ class Icon extends DataObject
 
     public function getPreview()
     {
-        if($this->SVG){
+        if ($this->SVG) {
             return DBHTMLText::create()->setValue($this->SVG);
         }
-        return DBHTMLText::create()->setValue('<i class="' . $this->Value . '"></i>');
+
+        $group = $this->IconGroup();
+
+        $classes = trim(implode(' ', array_filter([
+            $group?->IconClass,
+            $group?->IconStyle,
+            $this->Value,
+        ])));
+
+        return DBHTMLText::create()->setValue(
+            sprintf('<i class="%s"></i>', $classes)
+        );
     }
 
     public function onBeforeWrite ()

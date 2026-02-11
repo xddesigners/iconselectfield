@@ -7,11 +7,14 @@ SilverStripe\Core\Injector\Injector:
 SilverStripe\Admin\LeftAndMain:
   extensions:
     - XD\IconSelectField\Extensions\LeftAndMainExtension
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - XD\IconSelectField\Extensions\SiteConfigExtension
 
 # example config
 #XD\IconSelectField\Forms\IconSelectField:
 #  icons:
 #    section:
-#      facebook: 'fab fa-facebook-square'
+#      facebook: 'fa-brands fa-facebook-square'
 #    other_section:
 #      svg_icon: '<svg />'
