@@ -51,7 +51,7 @@ class DBIcon extends DBVarchar
      * @param null $params
      * @return \SilverStripe\Forms\FormField|DBVarchar|IconSelectField
      */
-    public function scaffoldFormField(?string $title = null, array $params = []): ?FormField
+    public function scaffoldFormField($title = null, $params = null)
     {
         return IconSelectField::create($this->name, $title);
     }
