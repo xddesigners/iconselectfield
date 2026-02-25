@@ -7,9 +7,12 @@ SilverStripe\Core\Injector\Injector:
 SilverStripe\Admin\LeftAndMain:
   extensions:
     - XD\IconSelectField\Extensions\LeftAndMainExtension
+  extra_requirements_css:
+    - 'xddesigners/iconselectfield:css/cms.css'
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - XD\IconSelectField\Extensions\SiteConfigExtension
+
 
 # example config
 #XD\IconSelectField\Forms\IconSelectField:

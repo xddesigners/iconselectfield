@@ -2,6 +2,7 @@
 
 namespace XD\IconSelectField\Models;
 
+use SilverStripe\Assets\Image;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
@@ -20,6 +21,11 @@ class Icon extends DataObject
 
     private static $has_one = [
         'IconGroup' => IconGroup::class,
+        'Image' => Image::class,
+    ];
+
+    private static $owns = [
+        'Image',
     ];
 
     private static $default_sort = 'Sort ASC';
@@ -35,6 +41,10 @@ class Icon extends DataObject
         $fields = parent::getCMSFields();
 
         $fields->removeByName(['Sort', 'IconGroupID']);
+
+        $fields->dataFieldByName('Value')
+            ->setTitle(_t(__CLASS__ . '.Value', 'Icon Class'))
+            ->setDescription(_t(__CLASS__ . '.ValueDescription', 'The CSS class for the icon, e.g. "fa-home", "fa-arrow-right", etc.'));
 
         $fields->addFieldsToTab('Root.Main',[
             HeaderField::create('PreviewHeader', 'Preview'),
@@ -53,6 +63,11 @@ class Icon extends DataObject
 
     public function getPreview()
     {
+
+        if($this->ImageID){
+            return $this->Image()->Fill(72,72);
+        }
+
         if ($this->SVG) {
             return DBHTMLText::create()->setValue($this->SVG);
         }
