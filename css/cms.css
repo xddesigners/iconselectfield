@@ -1,0 +1,5 @@
+.ss-gridfield-item[data-class="XD\\IconSelectField\\Models\\Icon"] svg,
+.ss-gridfield-item[data-class="XD\\IconSelectField\\Models\\Icon"] img {
+    width: 36px;
+    height: 36px;
+}
