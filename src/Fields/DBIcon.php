@@ -3,7 +3,7 @@
 namespace XD\IconSelectField\Fields;
 
 use SilverStripe\Forms\FormField;
-use SilverStripe\Model\ArrayData;
+use SilverStripe\View\ArrayData;
 use SilverStripe\ORM\FieldType\DBVarchar;
 use SilverStripe\View\SSViewer;
 use XD\IconSelectField\Forms\IconSelectField;
@@ -11,7 +11,7 @@ use XD\IconSelectField\Models\Icon;
 
 class DBIcon extends DBVarchar
 {
-    public function forTemplate(): string
+    public function forTemplate()
     {
         $iconName = $this->getValue();
         $icon = Icon::get()->filter(['Title'=>$iconName])->first();
