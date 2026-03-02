@@ -24,6 +24,7 @@ class LeftAndMainExtension extends Extension
             }
         } elseif ($includes && is_string($includes)) {
             Requirements::insertHeadTags($includes);
-        }
+       }
+
     }
 }

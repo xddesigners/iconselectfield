@@ -63,7 +63,6 @@ class Icon extends DataObject
 
     public function getPreview()
     {
-
         if($this->ImageID){
             return $this->Image()->Fill(72,72);
         }

@@ -43,7 +43,7 @@
     justify-content: center;
     background: white;
 }
-
+.icon-select-field li label img,
 .icon-select-field li label svg{
     width: 70%;
     height: 70%;
